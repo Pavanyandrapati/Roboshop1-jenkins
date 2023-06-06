@@ -1,0 +1,9 @@
+- name: create jenkins role
+  hosts: localhost
+  connection: local
+  vars:
+    sjobs:
+     - { git_repo_url: https://github.com/Pavanyandrapati/Roboshop1-jenkins.git, job_name: Roboshop1-terraform }
+     - { git_repo_url: https://github.com/Pavanyandrapati/Roboshop1-jenkins.git, job_name: Roboshop1-ansible }
+  roles:
+    - jenkins
