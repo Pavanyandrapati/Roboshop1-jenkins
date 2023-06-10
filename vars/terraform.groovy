@@ -9,7 +9,9 @@ def call() {
         parameters {
             choice(choice(name: 'dev', choices: ['dev', 'prod'], description: 'Pick environment'))
         }
-
+        options {
+              ansiColor('xterm')
+        }
         stages {
             stage('TERRAFORM INIT') {
                 steps {
