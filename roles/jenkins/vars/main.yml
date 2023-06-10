@@ -1,4 +1,3 @@
-vars:
-  sjobs:
+sjobs:
     - { git_repo_url: https://github.com/Pavanyandrapati/Roboshop1-jenkins.git, job_name: Roboshop1-terraform }
     - { git_repo_url: https://github.com/Pavanyandrapati/Roboshop1-jenkins.git, job_name: Roboshop1-ansible }
