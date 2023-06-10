@@ -6,31 +6,39 @@ def call() {
                 label 'workstation'
             }
         }
-        parameters {
-            choice(name: 'dev', choices: ['dev','prod'], description: 'Pick environment')
-        }
+
         options {
-              ansiColor('xterm')
+            ansiColor('xterm')
         }
+
+        parameters {
+            choice(name: 'env', choices: ['dev', 'prod'], description: 'Pick environment')
+            //choice(name: 'action', choices: ['apply', 'destroy'], description: 'Pick Action')
+        }
+
         stages {
-            stage('TERRAFORM INIT') {
+
+            stage('Terraform INIT') {
                 steps {
-                    sh 'terraform init -backend-config=env-dev/state.tfvars'
+                    sh 'terraform init -backend-config=env-${env}/state.tfvars'
                 }
             }
-            stage('TERRAFORM APPLY') {
+
+            stage('Terraform Apply') {
                 steps {
-                    sh 'terraform apply -auto-approve -var-file=env-dev/main.tfvars'
+                    sh 'terraform ${action} -auto-approve -var-file=env-${env}/main.tfvars'
                 }
             }
+
         }
 
         post {
             always {
-                cleanws ()
+                cleanWs()
             }
         }
 
-
     }
+
+
 }
