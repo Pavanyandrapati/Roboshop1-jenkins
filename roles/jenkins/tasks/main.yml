@@ -2,3 +2,9 @@
   ansible.builtin.include_tasks:
     file: sjob.yml
   loop: "{{sjobs}}"
+
+
+- name: Include task list in play
+  ansible.builtin.include_tasks:
+    file: mjob.yml
+  loop: "{{mjobs}}"
