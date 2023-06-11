@@ -38,6 +38,17 @@ def call() {
                     sh 'echo CheckMarx SCA Scan '
                 }
             }
+            stage('Release application') {
+                when {
+                    expression {
+                        TAG.NAME ==~ ".*"
+                    }
+                }
+                steps {
+                    sh 'env'
+                    sh 'Release application '
+                }
+            }
         }
 
         post {
