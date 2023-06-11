@@ -45,7 +45,7 @@ def call() {
                 }
                 steps {
                     sh 'env'
-                    sh 'Release application '
+                    sh 'echo Release application '
                 }
             }
         }
