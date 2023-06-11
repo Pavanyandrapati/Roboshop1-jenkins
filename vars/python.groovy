@@ -36,14 +36,29 @@ def call() {
                 }
             }
         }
+        stage('Release Application') {
+            when {
+                expression {
+                    env.TAG_NAME ==~ ".*"
+                }
+            }
+            steps {
+                sh 'echo $TAG_NAME >VERSION'
+                sh 'zip -r ${component}-${TAG_NAME}.zip *.ini *.py *.txt VERSION ${schema_dir}'
+                sh 'curl -f -v -u ${NEXUS_USR}:${NEXUS_PSW} --upload-file ${component}-${TAG_NAME}.zip http://172.31.82.149:8081/repository/${component}/${component}-${TAG_NAME}.zip'
+            }
+        }
 
-        post {
+
+    }
+
+    post {
             always {
                 cleanWs()
             }
         }
 
-    }
+
 
 
 }
