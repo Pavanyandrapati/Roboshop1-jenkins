@@ -27,7 +27,7 @@
         <data>
             <jenkins.branch.BranchSource>
                 <source class="jenkins.plugins.git.GitSCMSource" plugin="git@5.0.2">
-                    <id>bdce15d0-d1e3-46db-aaf6-4cc0022732f0</id>
+                    <id>3860cd6a-97e1-44d6-813f-db8b40fb0955</id>
                     <remote>{{ item.git_repo_url }}</remote>
                     <credentialsId></credentialsId>
                     <traits>
