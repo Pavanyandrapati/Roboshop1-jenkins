@@ -11,33 +11,40 @@ def call() {
             ansiColor('xterm')
         }
 
+        environment {
+            NEXUS = credentials('NEXUS')
+        }
+
+
         stages {
 
             stage('Code Quality') {
                 steps {
-                //  sh 'ls -l'
-                  //  sh 'sonar-scanner -Dsonar.projectKey=${component} -Dsonar.host.url=http://172.31.81.8:9000 -Dsonar.login=admin -Dsonar.password=admin123 -Dsonar.qualitygate.wait=true -Dsonar.java.binaries=./target'
-                      sh 'echo Code Quality'
+                    //sh 'sonar-scanner -Dsonar.projectKey=${component} -Dsonar.host.url=http://172.31.8.27:9000 -Dsonar.login=admin -Dsonar.password=admin123 -Dsonar.qualitygate.wait=true'
+                    sh 'echo Code Quality'
                 }
             }
 
             stage('Unit Test Cases') {
                 steps {
-                     sh 'echo Unit Test Cases '
+                    sh 'echo Unit tests'
                     //sh 'npm test'
                 }
             }
+
             stage('CheckMarx SAST Scan') {
                 steps {
-                    sh 'echo CheckMarx SAST Scan '
+                    sh 'echo Checkmarx Scan'
                 }
             }
+
             stage('CheckMarx SCA Scan') {
                 steps {
-                    sh 'echo CheckMarx SCA Scan '
+                    sh 'echo Checkmarx SCA Scan'
                 }
             }
-            stage('Release application') {
+
+            stage('Release Application') {
                 when {
                     expression {
                         env.TAG_NAME ==~ ".*"
@@ -50,6 +57,8 @@ def call() {
                     sh 'curl -f -v -u ${NEXUS_USR}:${NEXUS_PSW} --upload-file ${component}-${TAG_NAME}.zip http://172.31.83.153:8081/repository/${component}/${component}-${TAG_NAME}.zip'
                 }
             }
+
+
         }
 
         post {
